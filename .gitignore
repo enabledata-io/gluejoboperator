@@ -1,5 +1,11 @@
-./env/
-/env/
+./logs/
+/logs/
 
-./airflow/
-/airflow/
+./plugins/
+/plugins/
+
+./config/
+/config/
+
+./dags/__pycache__/
+/dags/__pycache__/
