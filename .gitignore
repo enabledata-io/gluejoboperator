@@ -4,8 +4,20 @@
 ./plugins/
 /plugins/
 
+./env/
+/env/
+
 ./config/
 /config/
 
 ./dags/__pycache__/
 /dags/__pycache__/
+
+./packages/build/
+/packages/build/
+
+./packages/dist/
+/packages/dist/
+
+./packages/package.egg-info/
+/packages/package.egg-info/

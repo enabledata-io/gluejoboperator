@@ -1,0 +1,28 @@
+name: Deploy Python packages
+
+on:
+  push:
+    paths: ['scripts/packages/**']
+
+env:
+  ETL_PACKAGE_VERSION: '1.0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Setting up AWS Credentials
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region us-east-2
+
+      - name: Upload etl package
+        run: |
+          cd packages/
+          python3 setup.py bdist_wheel
+          aws s3 cp dist/package-${{ env.ETL_PACKAGE_VERSION }}-py3-none-any.whl s3://enabledata/packages/package-${{ env.ETL_PACKAGE_VERSION }}-py3-none-any.whl
